@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>*HEXE*</title>
+	 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<link rel="stylesheet" href="animate.css">
+	<script src="jquery-1.7.2.js"></script>
+	<style>
+		html{
+			overflow: hidden;
+			font-size: 20px;
+			height: 100%;
+			width: 100%;
+		}
+		body{
+			height: 100%;
+			background-color: rgba(255,0,0,0.4);
+			background-size: cover;
+		}
+		#wrapper{
+			width: 14rem;
+			height: 14rem;
+			
+			position: absolute;
+			left: 50%;
+			margin-left:-7rem;
+			top:50%;
+			margin-top: -7rem;
+		}
+		#photo{
+			width: 100%;
+			height: 100%;
+			border-radius: 50%;
+			background-image:url('img/0 (1).JPG');
+			background-repeat: no-repeat;
+			background-position: center center;
+			background-size: cover;
+			animation-duration: 6s;
+			/*animation-delay: 2s;*/
+			animation-timing-function:ease-in-out ;
+			animation-direction:normal;
+			animation-fill-mode: forwards;
+		}
+		audio{
+			visibility: hidden;
+		}
+		#back{
+			height: 100%;
+			opacity: 0.6;
+			background-image: url(body0.jpg);
+			background-size: cover;
+			background-position: center center;
+		}
+	</style>
+	<script>
+	$(function(){
+		;(function(win, doc){
+        function change(){
+            doc.documentElement.style.fontSize=20*doc.documentElement.clientWidth/320+'px';
+        }
+        change();
+
+            win.addEventListener('resize', change, false);
+        })(window, document);
+
+			var arr=['flash','rubberBand','shake','tada','wobble','jello','bounceIn','bounceInDown','bounceInLeft','bounceInRight','bounceInUp','fadeInDown','flip','flipInX','flipInY','lightSpeedIn','rotateIn','rotateInDownLeft','rotateInDownRight','rollIn','zoomInDown','zoomInLeft','zoomInRight','zoomInUp'];
+			arr.sort(function(){
+                    return Math.random()-0.5;  
+                });
+			var i=0;
+			var n=arr.length;
+
+			function play(){
+
+				$('#photo').addClass('animated '+arr[i%n]);
+
+				$('#photo').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',function(){
+					$(this).removeClass('animated '+arr[i%n]);
+					i++;
+					$('#photo').css({'backgroundImage':'url("img/0 ('+(i%36+1)+').JPG") ','backgroundSize':'cover'});
+					play();
+				});
+			};
+			play();
+		
+			function fade(){
+				$('#back').fadeToggle(10000,function(){
+					$('#back').css({'backgroundImage': 'url(body'+i%3+'.jpg) ','backgroundSize':'cover'})
+					fade();
+				})
+			}
+			fade();
+	})
+		
+	</script>
+</head>
+<body>
+	<div id="back"></div>
+	<div id="wrapper">
+		<div id="photo"></div>
+	</div>
+	<audio controls autoplay loop>
+		  <source src="liange.mp3" type="audio/ogg">
+		  <source src="liange.mp3" type="audio/mpeg">
+		 您的浏览器不支持 audio 元素。
+	</audio>
+	
+</body>
+</html>
